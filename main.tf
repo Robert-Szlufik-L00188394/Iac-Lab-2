@@ -1,10 +1,10 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
 # Create a new VPC
 resource "aws_vpc" "lab_2-vpc" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block           = var.cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
 
@@ -25,8 +25,8 @@ resource "aws_internet_gateway" "lab_2-igw" {
 # Public Subnet
 resource "aws_subnet" "lab_2-public-subnet" {
   vpc_id                  = aws_vpc.lab_2-vpc.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  cidr_block              = var.public_subnet_cidr_block
+  availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
   tags = {
@@ -57,8 +57,8 @@ resource "aws_route_table_association" "lab_2-public-route-table-association" {
 # Private Subnet
 resource "aws_subnet" "lab_2-private-subnet" {
   vpc_id            = aws_vpc.lab_2-vpc.id
-  cidr_block        = "10.0.2.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block        = var.private_subnet_cidr_block
+  availability_zone = var.availability_zone
 
   tags = {
     Name = "lab_2-private-subnet"
