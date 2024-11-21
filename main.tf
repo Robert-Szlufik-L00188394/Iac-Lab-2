@@ -13,19 +13,25 @@ module "network" {
 
 }
 
-# Add outputs for the VPC ID, public subnet ID, and private subnet ID.
+module "security" {
+  source = "./modules/security"
 
-output "vpc_id" {
-  value       = module.network.vpc_id
-  description = "The ID of the VPC."
+  vpc_id             = module.network.vpc_id
+  allow_ingress_cidr = var.allow_ingress_cidr_block
+
 }
 
-output "public_subnet_id" {
-  value       = module.network.public_subnet_id
-  description = "The ID of the public subnet."
-}
+module "compute-public" {
+  source = "./modules/compute-public"
 
-output "private_subnet_id" {
-  value       = module.network.private_subnet_id
-  description = "The ID of the private subnet."
+  vpc_id                = module.network.vpc_id
+  public_subnet_id      = module.network.public_subnet_id
+  instance_type         = var.instance_type
+  ami_id                = var.ami_id
+  asg_desired_capacity  = var.asg_desired_capacity
+  asg_min_size          = var.asg_min_size
+  asg_max_size          = var.asg_max_size
+  alb_security_group_id = module.security.alb_security_group_id
+  ec2_security_group_id = module.security.ec2_security_group_id
+
 }
