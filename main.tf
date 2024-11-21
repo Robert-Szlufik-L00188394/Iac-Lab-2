@@ -12,3 +12,20 @@ module "network" {
   availability_zone         = var.availability_zone
 
 }
+
+# Add outputs for the VPC ID, public subnet ID, and private subnet ID.
+
+output "vpc_id" {
+  value       = module.network.vpc_id
+  description = "The ID of the VPC."
+}
+
+output "public_subnet_id" {
+  value       = module.network.public_subnet_id
+  description = "The ID of the public subnet."
+}
+
+output "private_subnet_id" {
+  value       = module.network.private_subnet_id
+  description = "The ID of the private subnet."
+}
