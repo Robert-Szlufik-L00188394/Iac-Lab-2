@@ -38,17 +38,31 @@ variable "allow_ingress_cidr_block" {
 }
 
 # Public compute module 
-variable "instance_type" {
+variable "public_instance_type" {
   description = "The type of instance to launch."
   default     = "t2.micro"
 
 }
 
-variable "ami_id" {
+variable "public_ami_id" {
   description = "The AMI ID to use for the instance."
   default     = "ami-012967cc5a8c9f891"
 }
 
+# Private compute module
+variable "private_instance_type" {
+  description = "The type of instance to launch."
+  default     = "t2.micro"
+
+}
+
+variable "private_ami_id" {
+  description = "The AMI ID to use for the instance."
+  default     = "ami-012967cc5a8c9f891"
+
+}
+
+# Common for both public and private compute modules
 variable "asg_desired_capacity" {
   description = "Desired capacity for the public ASG."
   default     = 1

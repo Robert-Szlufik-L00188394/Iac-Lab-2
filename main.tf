@@ -16,22 +16,42 @@ module "network" {
 module "security" {
   source = "./modules/security"
 
-  vpc_id             = module.network.vpc_id
-  allow_ingress_cidr = var.allow_ingress_cidr_block
+  vpc_id                   = module.network.vpc_id
+  allow_ingress_cidr       = var.allow_ingress_cidr_block
+  public_subnet_cidr_block = var.public_subnet_cidr_block
+  cidr_block               = var.cidr_block
 
 }
 
 module "compute-public" {
-  source = "./modules/compute-public"
+  source = "./modules/compute-layer"
 
   vpc_id                = module.network.vpc_id
-  public_subnet_id      = module.network.public_subnet_id
-  instance_type         = var.instance_type
-  ami_id                = var.ami_id
+  subnet_id             = module.network.public_subnet_id
+  is_internal           = false
+  instance_type         = var.public_instance_type
+  ami_id                = var.public_ami_id
   asg_desired_capacity  = var.asg_desired_capacity
   asg_min_size          = var.asg_min_size
   asg_max_size          = var.asg_max_size
-  alb_security_group_id = module.security.alb_security_group_id
-  ec2_security_group_id = module.security.ec2_security_group_id
+  alb_security_group_id = module.security.public_alb_security_group_id
+  ec2_security_group_id = module.security.public_ec2_security_group_id
+
+}
+
+
+module "compute-private" {
+  source = "./modules/compute-layer"
+
+  vpc_id                = module.network.vpc_id
+  subnet_id             = module.network.private_subnet_id
+  is_internal           = true
+  instance_type         = var.private_instance_type
+  ami_id                = var.private_ami_id
+  asg_desired_capacity  = var.asg_desired_capacity
+  asg_min_size          = var.asg_min_size
+  asg_max_size          = var.asg_max_size
+  alb_security_group_id = module.security.private_alb_security_group_id
+  ec2_security_group_id = module.security.private_ec2_security_group_id
 
 }
