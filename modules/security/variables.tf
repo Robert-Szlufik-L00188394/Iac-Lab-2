@@ -5,3 +5,11 @@ variable "vpc_id" {
 variable "allow_ingress_cidr" {
   description = "CIDR blocks allowed to access the ALB."
 }
+
+variable "cidr_block" {
+  description = "The CIDR block for the VPC."
+}
+
+variable "public_subnet_cidr_block" {
+  description = "The CIDR block for the public subnet."
+}
