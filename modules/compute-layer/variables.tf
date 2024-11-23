@@ -20,7 +20,7 @@ variable "ec2_security_group_id" {
 
 variable "is_internal" {
   description = "Boolean flag to determine if the ALB is internal or external."
-  type = bool
+  type        = bool
 
 }
 

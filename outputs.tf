@@ -33,19 +33,19 @@ output "public_ec2_security_group_id" {
 output "private_alb_security_group_id" {
   value       = module.security.private_alb_security_group_id
   description = "Security Group ID for the private ALB."
-  
+
 }
 
 output "private_ec2_security_group_id" {
   value       = module.security.private_ec2_security_group_id
   description = "Security Group ID for private EC2 instances."
-  
+
 }
 
 output "jump_box_security_group_id" {
   value       = module.security.jump_box_security_group_id
   description = "Security Group ID for the jump box."
-  
+
 }
 
 # Public compute module

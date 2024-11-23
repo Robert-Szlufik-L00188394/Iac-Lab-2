@@ -20,5 +20,5 @@ variable "public_subnet_cidr_block" {
 
 variable "allow_ingress_jumpbox_cidr" {
   description = "CIDR blocks allowed to access the jump box."
-  
+
 }

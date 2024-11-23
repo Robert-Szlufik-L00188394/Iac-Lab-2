@@ -81,5 +81,21 @@ variable "asg_max_size" {
 variable "allow_ingress_jumpbox_cidr" {
   description = "CIDR blocks to allow ingress traffic from."
   default     = ["0.0.0.0/0"]
-  
+
+}
+
+# Jumpbox module
+variable "jumpbox_ami_id" {
+  description = "The AMI ID to use for the instance."
+  default     = "ami-012967cc5a8c9f891"
+}
+
+variable "jumpbox_instance_type" {
+  description = "The type of instance to launch."
+  default     = "t2.micro"
+}
+
+variable "jumpbox_key_name" {
+  description = "The name of the key pair to use for the instance."
+  default     = "JumpboxKeyPair"
 }

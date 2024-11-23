@@ -1,8 +1,8 @@
 
 
 variable "region" {
-  description = "AWS region"    
-  
+  description = "AWS region"
+
 }
 variable "cidr_block" {
   description = "CIDR block for the VPC"

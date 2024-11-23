@@ -21,7 +21,7 @@ resource "aws_launch_template" "launch_template" {
   network_interfaces {
     associate_public_ip_address = true
     security_groups             = [var.ec2_security_group_id]
-    device_index = 0
+    device_index                = 0
   }
 
   # tag_specifications {
@@ -29,7 +29,7 @@ resource "aws_launch_template" "launch_template" {
   #     Name = "Public LT"
   #   }
   # }
-  
+
 }
 
 # Target Group
@@ -42,7 +42,7 @@ resource "aws_lb_target_group" "target_group" {
   tags = {
     Name = "${var.is_internal ? "Private" : "Public"} Target Group"
   }
-  
+
 }
 
 # Auto Scaling Group
@@ -61,9 +61,9 @@ resource "aws_autoscaling_group" "autoscaling_group" {
 
   target_group_arns = [aws_lb_target_group.target_group.arn]
 
-    tag {
-        key                 = "Name"
-        value               = "${var.is_internal ? "Private" : "Public"} Auto Scaling Group"
-        propagate_at_launch = true
-    }
+  tag {
+    key                 = "Name"
+    value               = "${var.is_internal ? "Private" : "Public"} Auto Scaling Group"
+    propagate_at_launch = true
+  }
 }
