@@ -42,6 +42,12 @@ output "private_ec2_security_group_id" {
   
 }
 
+output "jump_box_security_group_id" {
+  value       = module.security.jump_box_security_group_id
+  description = "Security Group ID for the jump box."
+  
+}
+
 # Public compute module
 output "public_alb_dns_name" {
   value       = module.compute-public.alb_dns_name

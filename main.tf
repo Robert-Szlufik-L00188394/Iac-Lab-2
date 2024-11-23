@@ -20,6 +20,7 @@ module "security" {
   allow_ingress_cidr       = var.allow_ingress_cidr_block
   public_subnet_cidr_block = var.public_subnet_cidr_block
   cidr_block               = var.cidr_block
+  allow_ingress_jumpbox_cidr = var.allow_ingress_jumpbox_cidr
 
 }
 

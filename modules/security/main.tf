@@ -1,4 +1,4 @@
-# Security Group for Public ALB
+# Security Group for Public Application Load Balancer
 resource "aws_security_group" "public_alb_sg" {
   vpc_id = var.vpc_id
 
@@ -30,6 +30,13 @@ resource "aws_security_group" "public_ec2_sg" {
     to_port         = 80
     protocol        = "tcp"
     security_groups = [aws_security_group.public_alb_sg.id]
+  }
+
+  ingress  {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allow_ingress_jumpbox_cidr
   }
 
   egress {
@@ -79,6 +86,13 @@ resource "aws_security_group" "private_ec2_security_group" {
     security_groups = [aws_security_group.private_alb_security_group.id]
   }
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allow_ingress_jumpbox_cidr
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -92,4 +106,26 @@ resource "aws_security_group" "private_ec2_security_group" {
 
 }
 
+# Security Group for Jump Box
+resource "aws_security_group" "jump_box_security_group" {
+  vpc_id = var.vpc_id
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allow_ingress_jumpbox_cidr
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [var.cidr_block]
+  }
+
+  tags = {
+    Name = "Jump Box Security Group"
+  }
+
+}

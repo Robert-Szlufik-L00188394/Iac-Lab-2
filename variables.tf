@@ -78,3 +78,8 @@ variable "asg_max_size" {
   default     = 3
 } #
 
+variable "allow_ingress_jumpbox_cidr" {
+  description = "CIDR blocks to allow ingress traffic from."
+  default     = ["0.0.0.0/0"]
+  
+}
