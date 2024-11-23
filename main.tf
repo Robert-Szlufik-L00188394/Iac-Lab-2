@@ -16,10 +16,11 @@ module "network" {
 module "security" {
   source = "./modules/security"
 
-  vpc_id                   = module.network.vpc_id
-  allow_ingress_cidr       = var.allow_ingress_cidr_block
-  public_subnet_cidr_block = var.public_subnet_cidr_block
-  cidr_block               = var.cidr_block
+  vpc_id                     = module.network.vpc_id
+  allow_ingress_cidr         = var.allow_ingress_cidr_block
+  public_subnet_cidr_block   = var.public_subnet_cidr_block
+  cidr_block                 = var.cidr_block
+  allow_ingress_jumpbox_cidr = var.allow_ingress_jumpbox_cidr
 
 }
 
@@ -53,5 +54,16 @@ module "compute-private" {
   asg_max_size          = var.asg_max_size
   alb_security_group_id = module.security.private_alb_security_group_id
   ec2_security_group_id = module.security.private_ec2_security_group_id
+
+}
+
+module "jumpbox" {
+  source = "./modules/jumpbox"
+
+  subnet_id         = module.network.public_subnet_id
+  instance_type     = var.jumpbox_instance_type
+  ami_id            = var.jumpbox_ami_id
+  key_name          = var.jumpbox_key_name
+  security_group_id = module.security.jump_box_security_group_id
 
 }

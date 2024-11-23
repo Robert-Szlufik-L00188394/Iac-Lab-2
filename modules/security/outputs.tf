@@ -13,11 +13,17 @@ output "public_ec2_security_group_id" {
 output "private_alb_security_group_id" {
   value       = aws_security_group.private_alb_security_group.id
   description = "Security Group ID for the private ALB."
-  
+
 }
 
 output "private_ec2_security_group_id" {
   value       = aws_security_group.private_ec2_security_group.id
   description = "Security Group ID for private EC2 instances."
-  
+
+}
+
+output "jump_box_security_group_id" {
+  value       = aws_security_group.jump_box_security_group.id
+  description = "Security Group ID for the jump box."
+
 }
