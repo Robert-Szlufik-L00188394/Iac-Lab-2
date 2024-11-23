@@ -3,7 +3,8 @@ variable "vpc_id" {
 
 }
 
-variable "subnet_id" {
+variable "subnet_ids" {
+  type        = list(string)
   description = "The ID of the public subnet."
 
 }
@@ -46,5 +47,10 @@ variable "asg_min_size" {
 
 variable "asg_max_size" {
   description = "Maximum size for the public ASG."
+
+}
+
+variable "key_name" {
+  description = "The name of the key pair to use for the instance."
 
 }

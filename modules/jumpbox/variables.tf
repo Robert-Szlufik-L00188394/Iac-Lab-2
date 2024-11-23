@@ -8,7 +8,8 @@ variable "instance_type" {
 
 }
 
-variable "subnet_id" {
+variable "subnet_ids" {
+  type        = list(string)
   description = "The ID of the subnet in which to launch the instance."
 
 }
