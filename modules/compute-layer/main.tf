@@ -4,7 +4,7 @@ resource "aws_lb" "application_load_balancer" {
   internal           = var.is_internal
   load_balancer_type = "application"
   security_groups    = [var.alb_security_group_id]
-  subnets            = [var.subnet_id]
+  subnets            = var.subnet_ids
 
   tags = {
     Name = "${var.is_internal ? "Private" : "Public"} Application Load Balancer"
@@ -16,6 +16,7 @@ resource "aws_launch_template" "launch_template" {
   name_prefix   = "lt-"
   image_id      = var.ami_id
   instance_type = var.instance_type
+  key_name      = var.key_name
 
 
   network_interfaces {
@@ -52,7 +53,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   min_size         = var.asg_min_size
   name             = "${var.is_internal ? "private" : "public"}-asg"
 
-  vpc_zone_identifier = [var.subnet_id]
+  vpc_zone_identifier = var.subnet_ids
 
   launch_template {
     id      = aws_launch_template.launch_template.id

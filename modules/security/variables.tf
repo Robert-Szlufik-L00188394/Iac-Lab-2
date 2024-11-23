@@ -13,7 +13,8 @@ variable "cidr_block" {
 
 }
 
-variable "public_subnet_cidr_block" {
+variable "public_subnet_cidr_blocks" {
+  type        = list(string)
   description = "The CIDR block for the public subnet."
 
 }

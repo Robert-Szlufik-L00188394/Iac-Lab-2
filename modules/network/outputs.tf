@@ -3,18 +3,18 @@ output "vpc_id" {
   description = "The ID of the VPC."
 }
 
-output "public_subnet_id" {
-  value       = aws_subnet.lab_2-public-subnet.id
+output "public_subnet_ids" {
+  value       = aws_subnet.lab_2-public-subnet[*].id
   description = "The ID of the public subnet."
 }
 
-output "private_subnet_id" {
-  value       = aws_subnet.lab_2-private-subnet.id
+output "private_subnet_ids" {
+  value       = aws_subnet.lab_2-private-subnet[*].id
   description = "The ID of the private subnet."
 }
 
-output "route_table_id" {
-  value       = aws_route_table.lab_2-public-route-table.id
+output "route_table_ids" {
+  value       = aws_route_table.lab_2-public-route-table[*].id
   description = "The ID of the public route table."
 }
 

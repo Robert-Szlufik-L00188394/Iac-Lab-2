@@ -5,32 +5,40 @@ variable "region" {
 
 }
 
-variable "availability_zone" {
+variable "availability_zones" {
+  type        = list(string)
   description = "The availability zone in which the resources will be created."
-  default     = "us-east-1a"
+  default     = ["us-east-1a", "us-east-1b"]
 
 }
 
+variable "jumpbox_key_name" {
+  description = "The name of the key pair to use for the instance."
+  default     = "JumpboxKeyPair"
+}
+
 # Netowrk module
-variable "cidr_block" {
+variable "vpc_cidr_block" {
   description = "The CIDR block for the VPC."
   default     = "10.0.0.0/16"
 
 }
 
-variable "public_subnet_cidr_block" {
+variable "public_subnet_cidr_blocks" {
+  type        = list(string)
   description = "The CIDR block for the public subnet."
-  default     = "10.0.1.0/24"
+  default     = ["10.0.1.0/24", "10.0.2.0/24"]
 
 }
 
-variable "private_subnet_cidr_block" {
+variable "private_subnet_cidr_blocks" {
+  type        = list(string)
   description = "The CIDR block for the private subnet."
-  default     = "10.0.10.0/24"
+  default     = ["10.0.10.0/24", "10.0.20.0/24"]
 
 }
-# Security group module
 
+# Security group module
 variable "allow_ingress_cidr_block" {
   description = "CIDR blocks to allow ingress traffic from."
   default     = ["0.0.0.0/0"]
@@ -95,7 +103,3 @@ variable "jumpbox_instance_type" {
   default     = "t2.micro"
 }
 
-variable "jumpbox_key_name" {
-  description = "The name of the key pair to use for the instance."
-  default     = "JumpboxKeyPair"
-}
